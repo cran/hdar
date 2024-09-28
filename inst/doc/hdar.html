@@ -12,7 +12,7 @@
 
 
 
-<title>A Guide to hdar package</title>
+<title>A Guide to the hdar package</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,14 +336,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">A Guide to hdar package</h1>
+<h1 class="title toc-ignore">A Guide to the hdar package</h1>
 
 
 <div id="TOC">
 <ul>
 <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
 <li><a href="#accessing-the-hda-service" id="toc-accessing-the-hda-service">Accessing the HDA Service</a></li>
-<li><a href="#setup" id="toc-setup">Setup</a></li>
+<li><a href="#installation" id="toc-installation">Installation</a></li>
 <li><a href="#authentication" id="toc-authentication">Authentication</a>
 <ul>
 <li><a href="#creating-and-authenticating-the-client" id="toc-creating-and-authenticating-the-client">Creating and
@@ -379,22 +379,22 @@ for Data</a></li>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>The <code>hdar</code> R package provides seamless access to the WEkEO
-Harmonised Data Access (HDA) API, enabling users to efficiently query,
-download, and process data from the HDA platform.</p>
+Harmonised Data Access (HDA) API, enabling users to programmatically
+query and download data from within R.</p>
 </div>
 <div id="accessing-the-hda-service" class="section level1">
 <h1>Accessing the HDA Service</h1>
 <p>To utilize the HDA service and library, you must first register for a
-WEkEO account. The HDA service is available at no cost to all WEkEO
-users. Creating an account allows you full access to our services,
-ensuring you can leverage the full capabilities of HDA seamlessly.
-Registration is straightforward and can be completed through the
-following link: <a href="https://www.wekeo.eu/register">Register for
+WEkEO account. Copernicus data and the HDA service are available at no
+cost to all WEkEO users. Creating an account allows you full access to
+our services, ensuring you can leverage the full capabilities of HDA
+seamlessly. Registration is straightforward and can be completed through
+the following link: <a href="https://www.wekeo.eu/register">Register for
 WEkEO</a>. Once your account is set up, you will be able to access the
 HDA services immediately.</p>
 </div>
-<div id="setup" class="section level1">
-<h1>Setup</h1>
+<div id="installation" class="section level1">
+<h1>Installation</h1>
 <p>To start using the <code>hdar</code> package, you first need to
 install and load it in your R environment.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Install stable hdar from CRAN</span></span>
@@ -465,17 +465,31 @@ individual Copernicus service:</p>
 <p>Will open a browser where you can read all the available T&amp;Cs. To
 accept/reject individual T&amp;Cs or all at once use:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>client<span class="sc">$</span><span class="fu">terms_and_conditions</span>()</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>                                              term_id accepted</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="dv">1</span>                           Copernicus_General_License     <span class="cn">TRUE</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="dv">2</span>                          Copernicus_Sentinel_License     <span class="cn">TRUE</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="dv">3</span>                       EUMETSAT_Core_Products_Licence     <span class="cn">TRUE</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="dv">4</span>                     EUMETSAT_Copernicus_Data_Licence     <span class="cn">TRUE</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="dv">5</span>  Copernicus_DEM_Instance_COP<span class="sc">-</span>DEM<span class="sc">-</span>GLO<span class="dv">-90</span><span class="sc">-</span>F_Global_90m     <span class="cn">TRUE</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="dv">6</span>  Copernicus_DEM_Instance_COP<span class="sc">-</span>DEM<span class="sc">-</span>GLO<span class="dv">-30</span><span class="sc">-</span>F_Global_30m     <span class="cn">TRUE</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="dv">7</span>                             Copernicus_ECMWF_License     <span class="cn">TRUE</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="dv">8</span>       Copernicus_Land_Monitoring_Service_Data_Policy     <span class="cn">TRUE</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="dv">9</span>            Copernicus_Marine_Service_Product_License     <span class="cn">TRUE</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="dv">10</span>                        CNES_Open_2<span class="fl">.0</span>_ETALAB_Licence     <span class="cn">TRUE</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>                                               term_id accepted</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="dv">1</span>                           Copernicus_General_License    <span class="cn">FALSE</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="dv">2</span>                          Copernicus_Sentinel_License    <span class="cn">FALSE</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="dv">3</span>                       EUMETSAT_Core_Products_Licence    <span class="cn">FALSE</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="dv">4</span>                     EUMETSAT_Copernicus_Data_Licence    <span class="cn">FALSE</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="dv">5</span>  Copernicus_DEM_Instance_COP<span class="sc">-</span>DEM<span class="sc">-</span>GLO<span class="dv">-90</span><span class="sc">-</span>F_Global_90m    <span class="cn">FALSE</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="dv">6</span>  Copernicus_DEM_Instance_COP<span class="sc">-</span>DEM<span class="sc">-</span>GLO<span class="dv">-30</span><span class="sc">-</span>F_Global_30m    <span class="cn">FALSE</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="dv">7</span>                             Copernicus_ECMWF_License    <span class="cn">FALSE</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="dv">8</span>       Copernicus_Land_Monitoring_Service_Data_Policy    <span class="cn">FALSE</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="dv">9</span>            Copernicus_Marine_Service_Product_License    <span class="cn">FALSE</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="dv">10</span>                        CNES_Open_2<span class="fl">.0</span>_ETALAB_Licence    <span class="cn">FALSE</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>client<span class="sc">$</span><span class="fu">terms_and_conditions</span>(<span class="at">term_id =</span> <span class="st">&#39;all&#39;</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>                                              term_id accepted</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="dv">1</span>                           Copernicus_General_License     <span class="cn">TRUE</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="dv">2</span>                          Copernicus_Sentinel_License     <span class="cn">TRUE</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="dv">3</span>                       EUMETSAT_Core_Products_Licence     <span class="cn">TRUE</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="dv">4</span>                     EUMETSAT_Copernicus_Data_Licence     <span class="cn">TRUE</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="dv">5</span>  Copernicus_DEM_Instance_COP<span class="sc">-</span>DEM<span class="sc">-</span>GLO<span class="dv">-90</span><span class="sc">-</span>F_Global_90m     <span class="cn">TRUE</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="dv">6</span>  Copernicus_DEM_Instance_COP<span class="sc">-</span>DEM<span class="sc">-</span>GLO<span class="dv">-30</span><span class="sc">-</span>F_Global_30m     <span class="cn">TRUE</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="dv">7</span>                             Copernicus_ECMWF_License     <span class="cn">TRUE</span></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="dv">8</span>       Copernicus_Land_Monitoring_Service_Data_Policy     <span class="cn">TRUE</span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="dv">9</span>            Copernicus_Marine_Service_Product_License     <span class="cn">TRUE</span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="dv">10</span>                        CNES_Open_2<span class="fl">.0</span>_ETALAB_Licence     <span class="cn">TRUE</span></span></code></pre></div>
 </div>
 <div id="finding-datasets" class="section level1">
 <h1>Finding Datasets</h1>
@@ -489,47 +503,47 @@ pattern.</p>
 retrieve a list of all datasets available on WEkEO by calling the
 <code>datasets</code> method on an instance of the <code>Client</code>
 class.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># retrieving the full list can take about 2 minutes!</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>all_datasets <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">datasets</span>()</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co"># list all datasets IDs on WEkEO</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">sapply</span>(filtered_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># retrieving the full list</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># This takes about 2 minutes!</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>all_datasets <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">datasets</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co"># list all datasets IDs on WEkEO</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">sapply</span>(filtered_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span></code></pre></div>
 </div>
 <div id="filtering-datasets" class="section level2">
 <h2>Filtering Datasets</h2>
 <p>You can also filter the datasets by providing a text pattern. This is
 useful when you are looking for datasets that match a specific keyword
 or phrase.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="st">&quot;Seasonal Trajectories&quot;</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>filtered_datasets <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">datasets</span>(pattern)</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co"># list dataset IDs</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">sapply</span>(filtered_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_VPP-LAEA&quot;</span> <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST&quot;</span>       <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST-LAEA&quot;</span> </span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_VPP&quot;</span> </span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>filtered_datasets <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">datasets</span>(<span class="st">&quot;Seasonal Trajectories&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># list dataset IDs</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">sapply</span>(filtered_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_VPP-LAEA&quot;</span> <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST&quot;</span>       <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST-LAEA&quot;</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_VPP&quot;</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="st">&quot;Baltic&quot;</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>filtered_datasets <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">datasets</span>(pattern)</span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co"># list dataset IDs</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="fu">sapply</span>(filtered_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_ANALYSISFORECAST_BGC_003_007:cmems_mod_bal_bgc-pp_anfc_P1D-i_202311&quot;</span>               </span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">&quot;EO:MO:DAT:NWSHELF_MULTIYEAR_PHY_004_009:cmems_mod_nws_phy-sst_my_7km-2D_PT1H-i_202112&quot;</span>                 </span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L4_MY_009_134:cmems_obs-oc_bal_bgc-plankton_my_l4-multi-1km_P1M_202211&quot;</span>  </span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_PHY_SUBSKIN_L4_NRT_010_034:cmems_obs-sst_bal_phy-subskin_nrt_l4_PT1H-m_202211&quot;</span>       </span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_MULTIYEAR_PHY_003_011:cmems_mod_bal_phy_my_P1Y-m_202303&quot;</span>                           </span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a> [<span class="dv">6</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L3_NRT_009_131:cmems_obs-oc_bal_bgc-transp_nrt_l3-olci-300m_P1D_202207&quot;</span>  </span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_MULTIYEAR_BGC_003_012:cmems_mod_bal_bgc_my_P1Y-m_202303&quot;</span>                           </span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a> [<span class="dv">8</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_SST_L4_REP_OBSERVATIONS_010_016:DMI_BAL_SST_L4_REP_OBSERVATIONS_010_016_202012&quot;</span>      </span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_ANALYSISFORECAST_PHY_003_006:cmems_mod_bal_phy_anfc_PT15M-i_202311&quot;</span>                </span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L3_MY_009_133:cmems_obs-oc_bal_bgc-plankton_my_l3-multi-1km_P1D_202207&quot;</span>  </span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_PHY_L3S_MY_010_040:cmems_obs-sst_bal_phy_my_l3s_P1D-m_202211&quot;</span>                        </span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>[<span class="dv">12</span>] <span class="st">&quot;EO:MO:DAT:SEAICE_BAL_SEAICE_L4_NRT_OBSERVATIONS_011_004:FMI-BAL-SEAICE_THICK-L4-NRT-OBS&quot;</span>               </span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;EO:MO:DAT:SEAICE_BAL_PHY_L4_MY_011_019:cmems_obs-si_bal_seaice-conc_my_1km_202112&quot;</span>                     </span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>[<span class="dv">14</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_ANALYSISFORECAST_WAV_003_010:cmems_mod_bal_wav_anfc_PT1H-i_202311&quot;</span>                 </span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a>[<span class="dv">15</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_REANALYSIS_WAV_003_015:dataset-bal-reanalysis-wav-hourly_202003&quot;</span>                   </span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L4_NRT_009_132:cmems_obs-oc_bal_bgc-plankton_nrt_l4-olci-300m_P1M_202207&quot;</span></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a>[<span class="dv">17</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_SST_L3S_NRT_OBSERVATIONS_010_032:DMI-BALTIC-SST-L3S-NRT-OBS_FULL_TIME_SERIE_201904&quot;</span> </span></code></pre></div>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>filtered_datasets <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">datasets</span>(<span class="st">&quot;Baltic&quot;</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co"># list dataset IDs</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="fu">sapply</span>(filtered_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_ANALYSISFORECAST_BGC_003_007:cmems_mod_bal_bgc-pp_anfc_P1D-i_202311&quot;</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">&quot;EO:MO:DAT:NWSHELF_MULTIYEAR_PHY_004_009:cmems_mod_nws_phy-sst_my_7km-2D_PT1H-i_202112&quot;</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L4_MY_009_134:cmems_obs-oc_bal_bgc-plankton_my_l4-multi-1km_P1M_202211&quot;</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_PHY_SUBSKIN_L4_NRT_010_034:cmems_obs-sst_bal_phy-subskin_nrt_l4_PT1H-m_202211&quot;</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_MULTIYEAR_PHY_003_011:cmems_mod_bal_phy_my_P1Y-m_202303&quot;</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a> [<span class="dv">6</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L3_NRT_009_131:cmems_obs-oc_bal_bgc-transp_nrt_l3-olci-300m_P1D_202207&quot;</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_MULTIYEAR_BGC_003_012:cmems_mod_bal_bgc_my_P1Y-m_202303&quot;</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a> [<span class="dv">8</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_SST_L4_REP_OBSERVATIONS_010_016:DMI_BAL_SST_L4_REP_OBSERVATIONS_010_016_202012&quot;</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_ANALYSISFORECAST_PHY_003_006:cmems_mod_bal_phy_anfc_PT15M-i_202311&quot;</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L3_MY_009_133:cmems_obs-oc_bal_bgc-plankton_my_l3-multi-1km_P1D_202207&quot;</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_PHY_L3S_MY_010_040:cmems_obs-sst_bal_phy_my_l3s_P1D-m_202211&quot;</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>[<span class="dv">12</span>] <span class="st">&quot;EO:MO:DAT:SEAICE_BAL_SEAICE_L4_NRT_OBSERVATIONS_011_004:FMI-BAL-SEAICE_THICK-L4-NRT-OBS&quot;</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;EO:MO:DAT:SEAICE_BAL_PHY_L4_MY_011_019:cmems_obs-si_bal_seaice-conc_my_1km_202112&quot;</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>[<span class="dv">14</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_ANALYSISFORECAST_WAV_003_010:cmems_mod_bal_wav_anfc_PT1H-i_202311&quot;</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>[<span class="dv">15</span>] <span class="st">&quot;EO:MO:DAT:BALTICSEA_REANALYSIS_WAV_003_015:dataset-bal-reanalysis-wav-hourly_202003&quot;</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">&quot;EO:MO:DAT:OCEANCOLOUR_BAL_BGC_L4_NRT_009_132:cmems_obs-oc_bal_bgc-plankton_nrt_l4-olci-300m_P1M_202207&quot;</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>[<span class="dv">17</span>] <span class="st">&quot;EO:MO:DAT:SST_BAL_SST_L3S_NRT_OBSERVATIONS_010_032:DMI-BALTIC-SST-L3S-NRT-OBS_FULL_TIME_SERIE_201904&quot;</span></span></code></pre></div>
 </div>
 <div id="understanding-the-results" class="section level2">
 <h2>Understanding the Results</h2>
@@ -614,22 +628,34 @@ dataset with the ID “EO:EEA:DAT:CLMS_HRVPP_ST”:</p>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>query_template</span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>{</span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="st">&quot;dataset_id&quot;</span><span class="sc">:</span> <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST&quot;</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="st">&quot;uid&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="st">&quot;productType&quot;</span><span class="sc">:</span> <span class="st">&quot;PPI&quot;</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  <span class="st">&quot;platformSerialIdentifier&quot;</span><span class="sc">:</span> <span class="st">&quot;S2A, S2B&quot;</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="st">&quot;tileId&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span>,</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="st">&quot;productVersion&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  <span class="st">&quot;resolution&quot;</span><span class="sc">:</span> <span class="st">&quot;10&quot;</span>,</span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  <span class="st">&quot;processingDate&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string&quot;</span>,</span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  <span class="st">&quot;start&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string&quot;</span>,</span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string&quot;</span>,</span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>  <span class="st">&quot;bbox&quot;</span><span class="sc">:</span> [</span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>    <span class="sc">-</span><span class="dv">180</span>,</span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>    <span class="sc">-</span><span class="dv">90</span>,</span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>    <span class="dv">180</span>,</span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a>    <span class="dv">90</span></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a>  ]</span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="st">&quot;itemsPerPage&quot;</span><span class="sc">:</span> <span class="dv">11</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="st">&quot;startIndex&quot;</span><span class="sc">:</span> <span class="dv">0</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  <span class="st">&quot;uid&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="st">&quot;productType&quot;</span><span class="sc">:</span> <span class="st">&quot;PPI&quot;</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  <span class="st">&quot;_comment_productType&quot;</span><span class="sc">:</span> <span class="st">&quot;One of&quot;</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  <span class="st">&quot;_values_productType&quot;</span><span class="sc">:</span> [<span class="st">&quot;PPI&quot;</span>, <span class="st">&quot;QFLAG&quot;</span>],</span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  <span class="st">&quot;platformSerialIdentifier&quot;</span><span class="sc">:</span> <span class="st">&quot;S2A, S2B&quot;</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  <span class="st">&quot;_comment_platformSerialIdentifier&quot;</span><span class="sc">:</span> <span class="st">&quot;One of&quot;</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  <span class="st">&quot;_values_platformSerialIdentifier&quot;</span><span class="sc">:</span> [</span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>    <span class="st">&quot;S2A, S2B&quot;</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>  ],</span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>  <span class="st">&quot;tileId&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>  <span class="st">&quot;productVersion&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span>,</span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a>  <span class="st">&quot;resolution&quot;</span><span class="sc">:</span> <span class="st">&quot;10&quot;</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a>  <span class="st">&quot;_comment_resolution&quot;</span><span class="sc">:</span> <span class="st">&quot;One of&quot;</span>,</span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a>  <span class="st">&quot;_values_resolution&quot;</span><span class="sc">:</span> [</span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a>    <span class="st">&quot;10&quot;</span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a>  ],</span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a>  <span class="st">&quot;processingDate&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with format: date-time&quot;</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a>  <span class="st">&quot;start&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with format: date-time&quot;</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span><span class="sc">:</span> <span class="st">&quot;__### Value of string type with format: date-time&quot;</span>,</span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a>  <span class="st">&quot;bbox&quot;</span><span class="sc">:</span> [</span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a>    <span class="sc">-</span><span class="dv">180</span>,</span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a>    <span class="sc">-</span><span class="dv">90</span>,</span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a>    <span class="dv">180</span>,</span>
+<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a>    <span class="dv">90</span></span>
+<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a>  ]</span>
+<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
 <div id="modify-and-use-the-generated-query-template" class="section level2">
@@ -638,7 +664,20 @@ dataset with the ID “EO:EEA:DAT:CLMS_HRVPP_ST”:</p>
 specific needs. Fields starting with <code>__###</code> are placeholders
 indicating possible values. If these placeholders are left unchanged,
 they will be automatically removed before sending the query to the HDA
-service.</p>
+service. Additionally, fields with the prefix <code>_comment_</code>
+provide relevant information regarding the specified field, such as
+possible values, format, or data patterns. Like the placeholders, these
+comment fields will also be automatically removed before the query is
+sent.</p>
+<p>Placeholders are used when there is no way to derive the value from
+the metadata endpoint, while comment fields appear when the field has a
+value already defined, offering additional context for customizing the
+query.</p>
+<p>Furthermore, fields prefixed with <code>_values_</code> contain all
+possible values for a specific field. This allows you to
+programmatically reference them in your code with ease, simplifying
+customization and ensuring that you have access to valid options when
+configuring the query.</p>
 <p>To modify the query, it is often easier to transform the JSON into an
 R list using the <code>jsonlite::fromJSON()</code> function:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># convert to list for easier manipulation in R</span></span>
@@ -648,35 +687,59 @@ R list using the <code>jsonlite::fromJSON()</code> function:</p>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="sc">$</span>dataset_id</span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST&quot;</span></span>
 <span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="sc">$</span>uid</span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="sc">$</span>itemsPerPage</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">11</span></span>
 <span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="sc">$</span>productType</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;PPI&quot;</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="sc">$</span>startIndex</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
 <span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="sc">$</span>platformSerialIdentifier</span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;S2A, S2B&quot;</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="sc">$</span>uid</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
 <span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="sc">$</span>tileId</span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="sc">$</span>productType</span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;PPI&quot;</span></span>
 <span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="sc">$</span>productVersion</span>
-<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_comment_productType</span><span class="st">`</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;One of&quot;</span></span>
 <span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="sc">$</span>resolution</span>
-<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;10&quot;</span></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_values_productType</span><span class="st">`</span></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;PPI&quot;</span>   <span class="st">&quot;QFLAG&quot;</span></span>
 <span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="sc">$</span>processingDate</span>
-<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string&quot;</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="sc">$</span>platformSerialIdentifier</span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;S2A, S2B&quot;</span></span>
 <span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a></span>
-<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="sc">$</span>start</span>
-<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string&quot;</span></span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_comment_platformSerialIdentifier</span><span class="st">`</span></span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;One of&quot;</span></span>
 <span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a><span class="sc">$</span>end</span>
-<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string&quot;</span></span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_values_platformSerialIdentifier</span><span class="st">`</span></span>
+<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;S2A, S2B&quot;</span></span>
 <span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a></span>
-<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a><span class="sc">$</span>bbox</span>
-<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="dv">180</span>  <span class="sc">-</span><span class="dv">90</span>  <span class="dv">180</span>   <span class="dv">90</span></span></code></pre></div>
+<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a><span class="sc">$</span>tileId</span>
+<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" tabindex="-1"></a><span class="sc">$</span>productVersion</span>
+<span id="cb12-39"><a href="#cb12-39" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb12-40"><a href="#cb12-40" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" tabindex="-1"></a><span class="sc">$</span>resolution</span>
+<span id="cb12-42"><a href="#cb12-42" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;10&quot;</span></span>
+<span id="cb12-43"><a href="#cb12-43" tabindex="-1"></a></span>
+<span id="cb12-44"><a href="#cb12-44" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_comment_resolution</span><span class="st">`</span></span>
+<span id="cb12-45"><a href="#cb12-45" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;One of&quot;</span></span>
+<span id="cb12-46"><a href="#cb12-46" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_values_resolution</span><span class="st">`</span></span>
+<span id="cb12-48"><a href="#cb12-48" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;10&quot;</span></span>
+<span id="cb12-49"><a href="#cb12-49" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" tabindex="-1"></a><span class="sc">$</span>processingDate</span>
+<span id="cb12-51"><a href="#cb12-51" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with format: date-time&quot;</span></span>
+<span id="cb12-52"><a href="#cb12-52" tabindex="-1"></a></span>
+<span id="cb12-53"><a href="#cb12-53" tabindex="-1"></a><span class="sc">$</span>start</span>
+<span id="cb12-54"><a href="#cb12-54" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with format: date-time&quot;</span></span>
+<span id="cb12-55"><a href="#cb12-55" tabindex="-1"></a></span>
+<span id="cb12-56"><a href="#cb12-56" tabindex="-1"></a><span class="sc">$</span>end</span>
+<span id="cb12-57"><a href="#cb12-57" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with format: date-time&quot;</span></span>
+<span id="cb12-58"><a href="#cb12-58" tabindex="-1"></a></span>
+<span id="cb12-59"><a href="#cb12-59" tabindex="-1"></a><span class="sc">$</span>bbox</span>
+<span id="cb12-60"><a href="#cb12-60" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="dv">180</span>  <span class="sc">-</span><span class="dv">90</span>  <span class="dv">180</span>   <span class="dv">90</span></span></code></pre></div>
 <p>Here is an example of how to use the query template in a search:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># set a new bbox</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>query_template<span class="sc">$</span>bbox <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">11.1090</span>, <span class="fl">46.6210</span>, <span class="fl">11.2090</span>, <span class="fl">46.7210</span>)</span>
@@ -685,38 +748,63 @@ R list using the <code>jsonlite::fromJSON()</code> function:</p>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>query_template<span class="sc">$</span>start <span class="ot">&lt;-</span> <span class="st">&quot;2018-03-01T00:00:00.000Z&quot;</span></span>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>query_template<span class="sc">$</span>end   <span class="ot">&lt;-</span> <span class="st">&quot;2018-05-31T00:00:00.000Z&quot;</span></span>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>query_template</span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="sc">$</span>dataset_id</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST&quot;</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="sc">$</span>uid</span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="sc">$</span>productType</span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;PPI&quot;</span></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="sc">$</span>platformSerialIdentifier</span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;S2A, S2B&quot;</span></span>
-<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a></span>
-<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="sc">$</span>tileId</span>
-<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
-<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a></span>
-<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="sc">$</span>productVersion</span>
-<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
-<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a></span>
-<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="sc">$</span>resolution</span>
-<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;10&quot;</span></span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="sc">$</span>processingDate</span>
-<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string&quot;</span></span>
-<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a></span>
-<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="sc">$</span>start</span>
-<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2018-03-01T00:00:00.000Z&quot;</span></span>
-<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a></span>
-<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="sc">$</span>end</span>
-<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2018-05-31T00:00:00.000Z&quot;</span></span>
-<span id="cb13-37"><a href="#cb13-37" tabindex="-1"></a></span>
-<span id="cb13-38"><a href="#cb13-38" tabindex="-1"></a><span class="sc">$</span>bbox</span>
-<span id="cb13-39"><a href="#cb13-39" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">11.109</span> <span class="fl">46.621</span> <span class="fl">11.209</span> <span class="fl">46.721</span></span></code></pre></div>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="sc">$</span>dataset_id</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;EO:EEA:DAT:CLMS_HRVPP_ST&quot;</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="sc">$</span>itemsPerPage</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">11</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="sc">$</span>startIndex</span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="sc">$</span>uid</span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="sc">$</span>productType</span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;PPI&quot;</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_comment_productType</span><span class="st">`</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;One of&quot;</span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_values_productType</span><span class="st">`</span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;PPI&quot;</span>   <span class="st">&quot;QFLAG&quot;</span></span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="sc">$</span>platformSerialIdentifier</span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;S2A, S2B&quot;</span></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_comment_platformSerialIdentifier</span><span class="st">`</span></span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;One of&quot;</span></span>
+<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_values_platformSerialIdentifier</span><span class="st">`</span></span>
+<span id="cb13-37"><a href="#cb13-37" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;S2A, S2B&quot;</span></span>
+<span id="cb13-38"><a href="#cb13-38" tabindex="-1"></a></span>
+<span id="cb13-39"><a href="#cb13-39" tabindex="-1"></a><span class="sc">$</span>tileId</span>
+<span id="cb13-40"><a href="#cb13-40" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb13-41"><a href="#cb13-41" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" tabindex="-1"></a><span class="sc">$</span>productVersion</span>
+<span id="cb13-43"><a href="#cb13-43" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with pattern: [</span><span class="sc">\\</span><span class="st">w-]+&quot;</span></span>
+<span id="cb13-44"><a href="#cb13-44" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" tabindex="-1"></a><span class="sc">$</span>resolution</span>
+<span id="cb13-46"><a href="#cb13-46" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;10&quot;</span></span>
+<span id="cb13-47"><a href="#cb13-47" tabindex="-1"></a></span>
+<span id="cb13-48"><a href="#cb13-48" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_comment_resolution</span><span class="st">`</span></span>
+<span id="cb13-49"><a href="#cb13-49" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;One of&quot;</span></span>
+<span id="cb13-50"><a href="#cb13-50" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" tabindex="-1"></a><span class="sc">$</span><span class="st">`</span><span class="at">_values_resolution</span><span class="st">`</span></span>
+<span id="cb13-52"><a href="#cb13-52" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;10&quot;</span></span>
+<span id="cb13-53"><a href="#cb13-53" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" tabindex="-1"></a><span class="sc">$</span>processingDate</span>
+<span id="cb13-55"><a href="#cb13-55" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;__### Value of string type with format: date-time&quot;</span></span>
+<span id="cb13-56"><a href="#cb13-56" tabindex="-1"></a></span>
+<span id="cb13-57"><a href="#cb13-57" tabindex="-1"></a><span class="sc">$</span>start</span>
+<span id="cb13-58"><a href="#cb13-58" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2018-03-01T00:00:00.000Z&quot;</span></span>
+<span id="cb13-59"><a href="#cb13-59" tabindex="-1"></a></span>
+<span id="cb13-60"><a href="#cb13-60" tabindex="-1"></a><span class="sc">$</span>end</span>
+<span id="cb13-61"><a href="#cb13-61" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2018-05-31T00:00:00.000Z&quot;</span></span>
+<span id="cb13-62"><a href="#cb13-62" tabindex="-1"></a></span>
+<span id="cb13-63"><a href="#cb13-63" tabindex="-1"></a><span class="sc">$</span>bbox</span>
+<span id="cb13-64"><a href="#cb13-64" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">11.109</span> <span class="fl">46.621</span> <span class="fl">11.209</span> <span class="fl">46.721</span></span></code></pre></div>
 <p>Once you have made the necessary modifications, you can convert the
 list back to JSON format with the <code>jsonlite::toJSON()</code>
 function. It’s crucial to use the <code>auto_unbox = TRUE</code> flag
@@ -724,7 +812,7 @@ when converting back to JSON. This ensures that the JSON is correctly
 formatted, particularly for arrays with a single element, due to the way
 <code>jsonlite</code> handles serialization.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># convert to JSON format</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>query_template <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(query_template, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>) <span class="co"># don&#39;t forget to put auto_unbox = TRUE</span></span></code></pre></div>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>query_template <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(query_template, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>, <span class="at">digits =</span> <span class="dv">17</span>) <span class="co"># don&#39;t forget to put auto_unbox = TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div id="searching-and-downloading-data" class="section level1">

@@ -29,6 +29,20 @@
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  client$terms_and_conditions()
+#  
+#                                                 term_id accepted
+#  1                           Copernicus_General_License    FALSE
+#  2                          Copernicus_Sentinel_License    FALSE
+#  3                       EUMETSAT_Core_Products_Licence    FALSE
+#  4                     EUMETSAT_Copernicus_Data_Licence    FALSE
+#  5  Copernicus_DEM_Instance_COP-DEM-GLO-90-F_Global_90m    FALSE
+#  6  Copernicus_DEM_Instance_COP-DEM-GLO-30-F_Global_30m    FALSE
+#  7                             Copernicus_ECMWF_License    FALSE
+#  8       Copernicus_Land_Monitoring_Service_Data_Policy    FALSE
+#  9            Copernicus_Marine_Service_Product_License    FALSE
+#  10                        CNES_Open_2.0_ETALAB_Licence    FALSE
+#  
+#  client$terms_and_conditions(term_id = 'all')
 #                                                term_id accepted
 #  1                           Copernicus_General_License     TRUE
 #  2                          Copernicus_Sentinel_License     TRUE
@@ -40,25 +54,27 @@
 #  8       Copernicus_Land_Monitoring_Service_Data_Policy     TRUE
 #  9            Copernicus_Marine_Service_Product_License     TRUE
 #  10                        CNES_Open_2.0_ETALAB_Licence     TRUE
+#  
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  # retrieving the full list can take about 2 minutes!
+#  # retrieving the full list
+#  # This takes about 2 minutes!
 #  all_datasets <- client$datasets()
 #  
 #  # list all datasets IDs on WEkEO
 #  sapply(filtered_datasets,FUN = function(x){x$dataset_id})
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  pattern <- "Seasonal Trajectories"
-#  filtered_datasets <- client$datasets(pattern)
+#  
+#  filtered_datasets <- client$datasets("Seasonal Trajectories")
 #  
 #  # list dataset IDs
 #  sapply(filtered_datasets,FUN = function(x){x$dataset_id})
 #  [1] "EO:EEA:DAT:CLMS_HRVPP_VPP-LAEA" "EO:EEA:DAT:CLMS_HRVPP_ST"       "EO:EEA:DAT:CLMS_HRVPP_ST-LAEA"
 #  [4] "EO:EEA:DAT:CLMS_HRVPP_VPP"
 #  
-#  pattern <- "Baltic"
-#  filtered_datasets <- client$datasets(pattern)
+#  
+#  filtered_datasets <- client$datasets("Baltic")
 #  
 #  # list dataset IDs
 #  sapply(filtered_datasets,FUN = function(x){x$dataset_id})
@@ -149,15 +165,27 @@ query <- '{
 #  query_template
 #  {
 #    "dataset_id": "EO:EEA:DAT:CLMS_HRVPP_ST",
+#    "itemsPerPage": 11,
+#    "startIndex": 0,
 #    "uid": "__### Value of string type with pattern: [\\w-]+",
 #    "productType": "PPI",
+#    "_comment_productType": "One of",
+#    "_values_productType": ["PPI", "QFLAG"],
 #    "platformSerialIdentifier": "S2A, S2B",
+#    "_comment_platformSerialIdentifier": "One of",
+#    "_values_platformSerialIdentifier": [
+#      "S2A, S2B"
+#    ],
 #    "tileId": "__### Value of string type with pattern: [\\w-]+",
 #    "productVersion": "__### Value of string type with pattern: [\\w-]+",
 #    "resolution": "10",
-#    "processingDate": "__### Value of string",
-#    "start": "__### Value of string",
-#    "end": "__### Value of string",
+#    "_comment_resolution": "One of",
+#    "_values_resolution": [
+#      "10"
+#    ],
+#    "processingDate": "__### Value of string type with format: date-time",
+#    "start": "__### Value of string type with format: date-time",
+#    "end": "__### Value of string type with format: date-time",
 #    "bbox": [
 #      -180,
 #      -90,
@@ -174,13 +202,31 @@ query <- '{
 #  $dataset_id
 #  [1] "EO:EEA:DAT:CLMS_HRVPP_ST"
 #  
+#  $itemsPerPage
+#  [1] 11
+#  
+#  $startIndex
+#  [1] 0
+#  
 #  $uid
 #  [1] "__### Value of string type with pattern: [\\w-]+"
 #  
 #  $productType
 #  [1] "PPI"
 #  
+#  $`_comment_productType`
+#  [1] "One of"
+#  
+#  $`_values_productType`
+#  [1] "PPI"   "QFLAG"
+#  
 #  $platformSerialIdentifier
+#  [1] "S2A, S2B"
+#  
+#  $`_comment_platformSerialIdentifier`
+#  [1] "One of"
+#  
+#  $`_values_platformSerialIdentifier`
 #  [1] "S2A, S2B"
 #  
 #  $tileId
@@ -192,14 +238,20 @@ query <- '{
 #  $resolution
 #  [1] "10"
 #  
+#  $`_comment_resolution`
+#  [1] "One of"
+#  
+#  $`_values_resolution`
+#  [1] "10"
+#  
 #  $processingDate
-#  [1] "__### Value of string"
+#  [1] "__### Value of string type with format: date-time"
 #  
 #  $start
-#  [1] "__### Value of string"
+#  [1] "__### Value of string type with format: date-time"
 #  
 #  $end
-#  [1] "__### Value of string"
+#  [1] "__### Value of string type with format: date-time"
 #  
 #  $bbox
 #  [1] -180  -90  180   90
@@ -212,8 +264,15 @@ query <- '{
 #  query_template$start <- "2018-03-01T00:00:00.000Z"
 #  query_template$end   <- "2018-05-31T00:00:00.000Z"
 #  query_template
+#  
 #  $dataset_id
 #  [1] "EO:EEA:DAT:CLMS_HRVPP_ST"
+#  
+#  $itemsPerPage
+#  [1] 11
+#  
+#  $startIndex
+#  [1] 0
 #  
 #  $uid
 #  [1] "__### Value of string type with pattern: [\\w-]+"
@@ -221,7 +280,19 @@ query <- '{
 #  $productType
 #  [1] "PPI"
 #  
+#  $`_comment_productType`
+#  [1] "One of"
+#  
+#  $`_values_productType`
+#  [1] "PPI"   "QFLAG"
+#  
 #  $platformSerialIdentifier
+#  [1] "S2A, S2B"
+#  
+#  $`_comment_platformSerialIdentifier`
+#  [1] "One of"
+#  
+#  $`_values_platformSerialIdentifier`
 #  [1] "S2A, S2B"
 #  
 #  $tileId
@@ -233,8 +304,14 @@ query <- '{
 #  $resolution
 #  [1] "10"
 #  
+#  $`_comment_resolution`
+#  [1] "One of"
+#  
+#  $`_values_resolution`
+#  [1] "10"
+#  
 #  $processingDate
-#  [1] "__### Value of string"
+#  [1] "__### Value of string type with format: date-time"
 #  
 #  $start
 #  [1] "2018-03-01T00:00:00.000Z"
@@ -247,7 +324,7 @@ query <- '{
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  # convert to JSON format
-#  query_template <- toJSON(query_template, auto_unbox = TRUE) # don't forget to put auto_unbox = TRUE
+#  query_template <- toJSON(query_template, auto_unbox = TRUE, digits = 17) # don't forget to put auto_unbox = TRUE
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  # Assuming 'client' is already created and authenticated, 'query' is defined
