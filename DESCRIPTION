@@ -1,7 +1,7 @@
 Package: hdar
 Type: Package
 Title: 'REST' API Client for Accessing Data on 'WEkEO HDA V2'
-Version: 1.0.2
+Version: 1.0.4
 URL: https://www.wekeo.eu/
 BugReports: https://github.com/eea/hdar/issues
 Authors@R: person("Matteo", "Mattiuzzi", email = "matteo.mattiuzzi@eea.europa.eu", role = c("aut", "cre"))
@@ -21,7 +21,7 @@ Depends: R (>= 2.10),
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-09-28 13:03:31 UTC; Mattiuzzi
+Packaged: 2024-11-19 19:43:20 UTC; Mattiuzzi
 Author: Matteo Mattiuzzi [aut, cre]
 Repository: CRAN
-Date/Publication: 2024-09-28 13:20:02 UTC
+Date/Publication: 2024-11-19 20:00:02 UTC

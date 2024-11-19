@@ -508,7 +508,7 @@ class.</p>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>all_datasets <span class="ot">&lt;-</span> client<span class="sc">$</span><span class="fu">datasets</span>()</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co"># list all datasets IDs on WEkEO</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">sapply</span>(filtered_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span></code></pre></div>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">sapply</span>(all_datasets,<span class="at">FUN =</span> <span class="cf">function</span>(x){x<span class="sc">$</span>dataset_id})</span></code></pre></div>
 </div>
 <div id="filtering-datasets" class="section level2">
 <h2>Filtering Datasets</h2>
