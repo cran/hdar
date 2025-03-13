@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Sentinel-1 GRD</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="dsvsd_files/libs/clipboard/clipboard.min.js"></script>
+<script src="dsvsd_files/libs/quarto-html/quarto.js"></script>
+<script src="dsvsd_files/libs/quarto-html/popper.min.js"></script>
+<script src="dsvsd_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="dsvsd_files/libs/quarto-html/anchor.min.js"></script>
+<link href="dsvsd_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="dsvsd_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="dsvsd_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="dsvsd_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="dsvsd_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sentinel-1 GRD</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<p>title: Sentinel-1 GRD</p>
+<hr>
+<p>## About Sentinel-1 GRD Data</p>
+<p>General information about Sentinel-1 mission can be found</p>
+<p>[here](/Data/SentinelMissions/Sentinel1.qmd). Sentinel Hub offers</p>
+<p>[Sentinel-1 Level 1 Ground Range Detected</p>
+<p>products](/Data/SentinelMissions/Sentinel1.qmd#sentinel-1-level-1-ground-range-detected-grd).</p>
+<p>## Processing Chain</p>
+<p>The following describes the way Sentinel-1 GRD data is processed in</p>
+<p>Sentinel Hub. For information on how to set processing parameters, see</p>
+<p>[Processing Options](#processing-options).</p>
+<p>1. Original or multilooked source chosen (depending on the resolution</p>
+<p>level; multilooking is done in ground range. Also</p>
+<p>[see](#differences-in-capabilities).)</p>
+<p>2. Calibration to the chosen backscatter coefficient and thermal noise</p>
+<p>removal applied.</p>
+<p>3. (Optional) [Speckle filtering](#speckle-filtering) on the source</p>
+<p>data (see the</p>
+<p>[example](/APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-non-orthorectified-lee-speckle-filtered-decibel-gamma0-hh-between–20-db-and-10-db-png)).</p>
+<p>4. (Optional) Radiometric terrain correction using [area</p>
+<p>integration](https://doi.org/10.1109/TGRS.2011.2120616){target=“_blank”}</p>
+<p>is performed. The [Mapzen or Copernicus</p>
+<p>DEM](/APIs/SentinelHub/Data/DEM.qmd) is used (see the</p>
+<p>[example](/APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-radiometrically-terrain-corrected-linear-gamma0-vv-between-0-and-05-png)).</p>
+<p>5. (Optional) Orthorectification using Range-Doppler terrain correction</p>
+<p>using the [Mapzen or Copernicus</p>
+<p>DEM](/APIs/SentinelHub/Data/DEM.qmd).</p>
+<p>Notes:</p>
+<p>- The orbit files used are the ones bundled in the products</p>
+<p>themselves. We find these more than sufficient for GRD use.</p>
+<p>Non-realtime products typically contain restituted orbit</p>
+<p>information.</p>
+<p>- The areas of border noise are not displayed by Sentinel Hub.</p>
+<p>- Radiometric terrain correction can only be performed if</p>
+<p>orthorectification is enabled. The DEM oversampling parameter is by</p>
+<p>default set to 2 and can be user adjusted. For low resolution</p>
+<p>requests (many meters per pixel) increasing it to 3, for example,</p>
+<p>can be worthwhile to reduce artifacts. Integer values are</p>
+<p>recommended. See also the S1GRD [API</p>
+<p>Reference](/APIs/SentinelHub/ApiReference.qmd).</p>
+<p>- The DEM, if used, is resampled using bilinear interpolation, and the</p>
+<p>same DEM is used for both radiometric terrain correction and</p>
+<p>orthorectification, provided both are enabled.</p>
+<p>## Accessing Sentinel-1 GRD Data</p>
+<p>To access data you need to send a POST request to our `process` API. The</p>
+<p>requested data will be returned as the response to your request. Each</p>
+<p>POST request can be tailored to get you exactly the data you require. To</p>
+<p>do this requires setting various parameters which depend on the data</p>
+<p>collection you are querying. This chapter will help you understand the</p>
+<p>parameters for S1GRD data. To see examples of such requests go</p>
+<p>[here](/APIs/SentinelHub/Process/Examples/S1GRD.qmd), and for an</p>
+<p>overview of all API parameters see the S1GRD [API</p>
+<p>Reference](/APIs/SentinelHub/ApiReference.qmd#operation/process).</p>
+<p>### Data type identifier: sentinel-1-grd</p>
+<p>Use `sentinel-1-grd` (previously `S1GRD`) as the value of the</p>
+<p>`input.data.type` parameter in your API requests. This is mandatory and</p>
+<p>will ensure you get Sentinel-1 GRD data.</p>
+<p>### Filtering Options</p>
+<p>This chapter will explain the `input.data.dataFilter` object of the</p>
+<p>`S1GRD` `process` API.</p>
+<p>#### mosaickingOrder</p>
+<p>[The same as for</p>
+<p>S2L1C.](/APIs/SentinelHub/Data/S2L1C.qmd#mosaickingorder)</p>
+<p>#### resolution (pixel spacing)</p>
+<p>Value Description</p>
+<hr>
+<p>**HIGH** 10m/px for IW/SM and 25m/px for EW</p>
+<p>**MEDIUM** 40m/px for IW/SM and EW</p>
+<p>#### acquisitionMode</p>
+<p>Sentinel-1 operates in four different acquisition modes</p>
+<p>([more](https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-AcquisitionModesS1-Mission-Acquisition-Modes){target=“_blank”}).</p>
+<p>Value Description Polarization options</p>
+<hr>
+<p>**SM** Stripmap mode ([more](https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-StripmapS1-Mission-Stripmap){target=“_blank”}). HH+HV, VV+VH, HH, VV</p>
+<p>**IW** Interferometric Wide (IW) swath mode ([more](https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-InterferometricWideSwathS1-Mission-Interferometric-Wide-Swath){target=“_blank”}). HH+HV, VV+VH, HH, VV</p>
+<p>**EW** Extra Wide (EW) swath mode ([more](https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-ExtraWideSwathS1-Mission-Extra-Wide-Swath){target=“_blank”}). HH+HV, VV+VH, HH, VV</p>
+<p>**WV** Wave mode ([more](https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-WaveS1-Mission-Wave){target=“_blank”}). HH, VV</p>
+<p>#### polarization</p>
+<p>This table contains information about the polarization two letter code</p>
+<p>used by ESA and the product\’s contained polarizations.</p>
+<p>Value Description Notes</p>
+<hr>
+<p>**SH** HH</p>
+<p>**SV** VV</p>
+<p>**DH** HH+HV Typical for EW acquisitions</p>
+<p>**DV** VV+VH Typical for IW acquisitions</p>
+<p>**HH** Partial Dual, HH only HH+HV was acquired, only HH is available in this product</p>
+<p>**HV** Partial Dual, HV only HH+HV was acquired, only HV is available in this product</p>
+<p>**VV** Partial Dual, VV only VV+VH was acquired, only VV is available in this product</p>
+<p>**VH** Partial Dual, VH only VV+VH was acquired, only VH is available in this product</p>
+<p>#### orbitDirection</p>
+<p>Value Description</p>
+<hr>
+<p>**ASCENDING** Data acquired when the satellite was traveling approx. towards the Earth\’s North pole.</p>
+<p>**DESCENDING** Data acquired when the satellite was traveling approx. towards the Earth\’s South pole.</p>
+<p>#### timeliness</p>
+<p>Value</p>
+<hr>
+<p>NRT10m</p>
+<p>NRT1h</p>
+<p>NRT3h</p>
+<p>Fast24h</p>
+<p>Offline</p>
+<p>Reprocessing</p>
+<p>ArchNormal</p>
+<p>### Processing Options</p>
+<p>This chapter will explain the `input.data.processing` object of the</p>
+<p>`S1GRD` `process` API.</p>
+<p>Parameter Description Values Default</p>
+<hr>
+<p>upsampling Defines the interpolation used for processing, regardless of the resolution **NEAREST** - [nearest neighbour interpolation](https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation){target=“_blank”} `&lt;br/&gt;`{=html} **BILINEAR** - [bilinear interpolation](https://en.wikipedia.org/wiki/Bilinear_interpolation){target=“_blank”} `&lt;br/&gt;`{=html} **BICUBIC** - [bicubic interpolation](https://en.wikipedia.org/wiki/Bicubic_interpolation){target=“_blank”} **NEAREST**</p>
+<p>downsampling Not used, use `upsampling` instead N/A Ignored</p>
+<p>backCoeff \[1\] Backscatter coefficient **BETA0**`&lt;br/&gt;`{=html}**SIGMA0_ELLIPSOID** `&lt;br/&gt;`{=html}**GAMMA0_ELLIPSOID**`&lt;br/&gt;`{=html} **GAMMA0_TERRAIN** **GAMMA0_ELLIPSOID**</p>
+<p>orthorectify \[2\] Enables/disables orthorectification **TRUE** - Orthorectified`&lt;br/&gt;`{=html}**FALSE** - non-Orthorectified`&lt;br/&gt;`{=html} **FALSE**</p>
+<p>demInstance The DEM used for orthorectification **COPERNICUS** - Copernicus DEM 10m and 30m \[4\]\[5\] `&lt;br/&gt;`{=html} **COPERNICUS_30** - Copernicus DEM 30m \[5\] `&lt;br/&gt;`{=html} **COPERNICUS_90** - Copernicus DEM 90m **COPERNICUS**</p>
+<p>radiometricTerrainOversampling Sets the DEM oversampling parameter for radiometric terrain correction. Integer values recommended. 1 to 4 2</p>
+<p>speckleFilter Defines the speckle filtering method and parameters to use. See [Speckle Filtering](#speckle-filtering) NONE</p>
+<p>\[1\]: `gamma0_ellipsoid` and `sigma0_ellipsoid` use an ellipsoid earth</p>
+<p>model. Radiometric terrain correction can be enabled by setting the</p>
+<p>backscatter coefficient to `gamma0_terrain`; orthorectification must be</p>
+<p>enabled in this case.</p>
+<p>\[2\]: For orthorectification, we use the DEM instance specified in the</p>
+<p>demInstance field or the default DEM instance if this is not set. The</p>
+<p>Copernicus DEM is generally of higher quality and recommended in most</p>
+<p>cases. The non-orthorectified products use a simple earth model as</p>
+<p>provided in the products themselves. This may be sufficient for very</p>
+<p>flat target areas and is faster to process.</p>
+<p>\[4\]: It has 10m resolution inside [39 European states including</p>
+<p>islands](https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model){target=“_blank”}</p>
+<p>and 30m elsewhere. The 30m DEM is used exclusively if the request</p>
+<p>resolution is lower (more zoomed out) than 120m/px.</p>
+<p>\[5\]: The Copernicus 30m DEM has global coverage if used for the</p>
+<p>processing of Sentinel-1 data.</p>
+<p>#### Speckle Filtering</p>
+<p>Speckle filtering is applied right after calibration and noise removal</p>
+<p>and done on source data. To enable speckle filtering, add the speckle</p>
+<p>filter object with the correct type and parameters to your processing</p>
+<p>options, as shown in [this</p>
+<p>example](/APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-non-orthorectified-lee-speckle-filtered-decibel-gamma0-hh-between–20-db-and-10-db-png)).</p>
+<p>Available filters:</p>
+<p>1. The `NONE` filter, which as the name implies, does nothing, and is</p>
+<p>equivalent to not having the filter defined at all.</p>
+<p>``` default</p>
+<p>“speckleFilter”: {</p>
+<p>“type”: “NONE”</p>
+<p>}</p>
+<p>```</p>
+<p>2. The LEE speckle filter. Window sizes from 1 to 7 are supported in</p>
+<p>each dimension. Odd valued window sizes are recommended. Processing</p>
+<p>time rapidly increases as window size increases. Note also that the</p>
+<p>effect of the filter depends on the resolution/zoom level; it is</p>
+<p>most pronounced at native resolution and gets reduced as you zoom</p>
+<p>out. We therefore suggest you use it at or near native resolution</p>
+<p>and switch it off at low resolution to save processing time. The</p>
+<p>effect of the filter is negligible if greatly zoomed out. An example</p>
+<p>with a 5x5 window:</p>
+<p>``` default</p>
+<p>“speckleFilter”: {</p>
+<p>“type”: “LEE”,</p>
+<p>“windowSizeX”: 5,</p>
+<p>“windowSizeY”: 5</p>
+<p>}</p>
+<p>```</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As an alternative or in addition to this, you can also perform</p>
+<p>[multitemporal</p>
+<p>averaging](/APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-orthorectified-gamma0-two-month-temporal-averaged-decibel-vv-between–20-db-and-0-db-png)</p>
+<p>to reduce speckle.</p>
+</div>
+</div>
+<p>### Available Bands and Data</p>
+<p>Information in this chapter is useful when defining [`input`</p>
+<p>object](/APIs/SentinelHub/Evalscript/V3.qmd#input-object-properties) in</p>
+<p>evalscript. Any string listed in the column **Name** can be an element</p>
+<p>of the `input.bands` array in your evalscript.</p>
+<p>Name Description</p>
+<hr>
+<p>VV Present when the product polarization type is one of SV, DV or VV.</p>
+<p>VH Present when the product polarization type is VH or DV.</p>
+<p>HV Present when the product polarization type is HV or DH.</p>
+<p>HH Present when the product polarization type is one of SH, DH or HH.</p>
+<p>localIncidenceAngle The local incidence angle for each output pixel. Only available if orthorectification is enabled.</p>
+<p>scatteringArea The normalized scattering area for each output pixel. Used for conversion of beta0 to terrain corrected gamma0. Only available if radiometric terrain correction is performed.</p>
+<p>shadowMask Flags output pixels which are in or near radar shadow. Is `true` if the nearest GRD source pixel is at most one GRD pixel away from a GRD pixel with a scatteringArea of less than 0.05. Only available if radiometric terrain correction is performed.</p>
+<p>dataMask The mask of data/nodata pixels ([more](/APIs/SentinelHub/UserGuides/Datamask.qmd)).</p>
+<p>### Units</p>
+<p>The data values for each band in your custom script are presented in the</p>
+<p>units as specified here. In case more than one unit is available for a</p>
+<p>given band, you may optionally set the value of `input.units` in your</p>
+<p>evalscript `setup` function to one of the values in the</p>
+<p>`Sentinel Hub Units` column. Doing so will present data in that unit.</p>
+<p>The Sentinel Hub `units` parameter combines the physical quantity and</p>
+<p>corresponding units of measurement values. As such, some names more</p>
+<p>closely resemble physical quantities, others resemble units of</p>
+<p>measurement.</p>
+<p>The `Source Format` specifies how and with what precision the digital</p>
+<p>numbers (`DN`) from which the unit is derived are encoded. Bands</p>
+<p>requested in `DN` units contain exactly the pixel values of the source</p>
+<p>data. Note that resampling may produce interpolated values. `DN` is also</p>
+<p>used whenever a band is derived computationally (like dataMask); such</p>
+<p>bands can be identified by having `DN` units and `N/A` source format.</p>
+<p>`DN` values are typically not offered if they do not simply represent</p>
+<p>any physical quantity, in particular, when `DN` values require</p>
+<p>source-specific (i.e.&nbsp;non-global) conversion to physical quantities.</p>
+<p>Values in non-`DN` units are computed from the source (`DN`) values with</p>
+<p>at least float32 precision. Note that the conversion might be nonlinear,</p>
+<p>therefore the full value range and quantization step size of such a band</p>
+<p>can be hard to predict. Band values in evalscripts always behave as</p>
+<p>floating point numbers, regardless of the actual precision.</p>
+<p>The `Typical Range` indicates what values are common for a given band</p>
+<p>and unit, however outliers can be expected.</p>
+<p>For Sentinel-1, data values are linear power in the chosen backscatter</p>
+<p>coefficient. To specify the backscatter coefficient, set `BETA0`,</p>
+<p>`SIGMA0_ELLIPSOID`, `GAMMA0_ELLIPSOID` (default) or `GAMMA0_TERRAIN` as</p>
+<p>the value of `input.data.processing.backCoeff` in your request. The</p>
+<p>default is `GAMMA0_ELLIPSOID`.</p>
+<p>Band Physical Quantity (units) Sentinel Hub Units Source Format Typical Range Notes</p>
+<hr>
+<p>Polarization `&lt;br/&gt;`{=html}VV, HH, VH, HV Linear power in the chosen backscatter coefficient (unitless) LINEAR_POWER UINT16 0 - 0.5 Can reach very high values (such as 1000); for visualizing a large dynamic range consider converting to decibels: `decibel = 10 * log10 (linear)`.</p>
+<p>localIncidenceAngle Angle (degrees) DN N/A 0 - 180 Computed for each output pixel. Requires orthorectification.</p>
+<p>scatteringArea Normalized area (unitless) DN N/A 0 - 2 Can reach high values on foreslopes. Requires radiometric terrain correction.</p>
+<p>shadowMask N/A DN N/A 0 - likely not radar shadow `&lt;br/&gt;`{=html} 1 - likely in/near radar shadow Requires radiometric terrain correction.</p>
+<p>dataMask N/A DN N/A 0 - no data`&lt;br/&gt;`{=html} 1 - data</p>
+<p>### Scenes Object</p>
+<p>[`scenes` object](/APIs/SentinelHub/Evalscript/V3.qmd#scenes) stores</p>
+<p>metadata. An example of metadata available in `scenes` object for</p>
+<p>Sentinel-1 GRD when mosaicking is `ORBIT`:</p>
+<p>Property name Value</p>
+<hr>
+<p>dateFrom `‘2019-04-02T00:00:00Z’`</p>
+<p>dateTo `‘2019-04-02T23:59:59Z’`</p>
+<p>tiles\[i\].date `‘2019-04-02T17:05:39Z’`</p>
+<p>tiles\[i\].shId `881338`</p>
+<p>tiles\[i\].dataPath `‘s3://sentinel-s1-l1c/GRD/2019/4/2/IW/DV/S1A_IW_GRDH_1SDV_20190402T170539_20190402T170604_026614_02FC31_7D8E’`</p>
+<p>Properties of a `scenes` object can differ depending on the selected</p>
+<p>mosaicking and in which evalscript function the object is accessed.</p>
+<p>[Working with metadata in</p>
+<p>evalscript](/APIs/SentinelHub/UserGuides/Metadata.qmd) user guide</p>
+<p>explains all details and provide examples.</p>
+<p>### Mosaicking</p>
+<p>`SIMPLE` and `ORBIT`</p>
+<p>[mosaicking](/APIs/SentinelHub/Evalscript/V3.qmd#mosaicking) types are</p>
+<p>supported.</p>
+<p>## Collection specific constraints</p>
+<p>- **Noise**: All products on both services have thermal noise</p>
+<p>reduction applied.</p>
+<p>- **Decibel units**: For decibel outputs, a conversion is necessary</p>
+<p>within your evalscript, see an example</p>
+<p>[here](/APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-orthorectified-decibel-gamma0-vh-between–20-db-and-0-db-png).</p>
+<p>We offer pre-defined evalscripts, which return S1GRD values in</p>
+<p>decibel units, as products in the Configuration Utility for your</p>
+<p>convenience.</p>
+<p>- **Orbit state vectors**: We currently use the orbit state vectors</p>
+<p>provided in the products themselves as we find these sufficient for</p>
+<p>GRD use.</p>
+<p>## Catalog API Capabilities</p>
+<p>To access Sentinel-1 GRD product metadata you need to send search</p>
+<p>request to our [Catalog API](/APIs/SentinelHub/Catalog.qmd). The</p>
+<p>requested metadata will be returned as JSON formatted response to your</p>
+<p>request. This chapter will help with understanding Sentinel 1 GRD</p>
+<p>specific parameters for search request.</p>
+<p>### Collection identifier: sentinel-1-grd</p>
+<p>### Filter extension</p>
+<p>- `sar:instrument_mode` ([possible values](#acquisitionmode))</p>
+<p>- `sat:orbit_state` ([possible values](#orbitdirection))</p>
+<p>- `s1:polarization` ([possible values](#polarization))</p>
+<p>- `s1:resolution` ([possible values](#resolution-pixel-spacing))</p>
+<p>- `s1:timeliness` ([possible values](#timeliness))</p>
+<p>### Distinct extension</p>
+<p>- `date`</p>
+<p>- `sar:instrument_mode`</p>
+<p>- `sat:orbit_state`</p>
+<p>- `s1:polarization`</p>
+<p>## Examples</p>
+<p>[S1 GRD examples](/APIs/SentinelHub/Process/Examples/S1GRD.qmd)</p>
+<section id="about-sentinel-1-grd-data" class="level2">
+<h2 class="anchored" data-anchor-id="about-sentinel-1-grd-data">About Sentinel-1 GRD Data</h2>
+<p>General information about Sentinel-1 mission can be found <a href=".\Data/SentinelMissions/Sentinel1.qmd">here</a>. Sentinel Hub offers <a href=".\Data/SentinelMissions/Sentinel1.qmd#sentinel-1-level-1-ground-range-detected-grd">Sentinel-1 Level 1 Ground Range Detected products</a>.</p>
+</section>
+<section id="processing-chain" class="level2">
+<h2 class="anchored" data-anchor-id="processing-chain">Processing Chain</h2>
+<p>The following describes the way Sentinel-1 GRD data is processed in Sentinel Hub. For information on how to set processing parameters, see <a href="#processing-options">Processing Options</a>.</p>
+<ol type="1">
+<li>Original or multilooked source chosen (depending on the resolution level; multilooking is done in ground range. Also <a href="#differences-in-capabilities">see</a>.)</li>
+<li>Calibration to the chosen backscatter coefficient and thermal noise removal applied.</li>
+<li>(Optional) <a href="#speckle-filtering">Speckle filtering</a> on the source data (see the <a href=".\APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-non-orthorectified-lee-speckle-filtered-decibel-gamma0-hh-between--20-db-and-10-db-png">example</a>).</li>
+<li>(Optional) Radiometric terrain correction using <a href="https://doi.org/10.1109/TGRS.2011.2120616" target="_blank">area integration</a> is performed. The <a href=".\APIs/SentinelHub/Data/DEM.qmd">Mapzen or Copernicus DEM</a> is used (see the <a href=".\APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-radiometrically-terrain-corrected-linear-gamma0-vv-between-0-and-05-png">example</a>).</li>
+<li>(Optional) Orthorectification using Range-Doppler terrain correction using the <a href=".\APIs/SentinelHub/Data/DEM.qmd">Mapzen or Copernicus DEM</a>.</li>
+</ol>
+<p>Notes:</p>
+<ul>
+<li>The orbit files used are the ones bundled in the products themselves. We find these more than sufficient for GRD use. Non-realtime products typically contain restituted orbit information.</li>
+<li>The areas of border noise are not displayed by Sentinel Hub.</li>
+<li>Radiometric terrain correction can only be performed if orthorectification is enabled. The DEM oversampling parameter is by default set to 2 and can be user adjusted. For low resolution requests (many meters per pixel) increasing it to 3, for example, can be worthwhile to reduce artifacts. Integer values are recommended. See also the S1GRD <a href=".\APIs/SentinelHub/ApiReference.qmd">API Reference</a>.</li>
+<li>The DEM, if used, is resampled using bilinear interpolation, and the same DEM is used for both radiometric terrain correction and orthorectification, provided both are enabled.</li>
+</ul>
+</section>
+<section id="accessing-sentinel-1-grd-data" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-sentinel-1-grd-data">Accessing Sentinel-1 GRD Data</h2>
+<p>To access data you need to send a POST request to our <code>process</code> API. The requested data will be returned as the response to your request. Each POST request can be tailored to get you exactly the data you require. To do this requires setting various parameters which depend on the data collection you are querying. This chapter will help you understand the parameters for S1GRD data. To see examples of such requests go <a href=".\APIs/SentinelHub/Process/Examples/S1GRD.qmd">here</a>, and for an overview of all API parameters see the S1GRD <a href=".\APIs/SentinelHub/ApiReference.qmd#operation/process">API Reference</a>.</p>
+<section id="data-type-identifier-sentinel-1-grd" class="level3">
+<h3 class="anchored" data-anchor-id="data-type-identifier-sentinel-1-grd">Data type identifier: sentinel-1-grd</h3>
+<p>Use <code>sentinel-1-grd</code> (previously <code>S1GRD</code>) as the value of the <code>input.data.type</code> parameter in your API requests. This is mandatory and will ensure you get Sentinel-1 GRD data.</p>
+</section>
+<section id="filtering-options" class="level3">
+<h3 class="anchored" data-anchor-id="filtering-options">Filtering Options</h3>
+<p>This chapter will explain the <code>input.data.dataFilter</code> object of the <code>S1GRD</code> <code>process</code> API.</p>
+<section id="mosaickingorder" class="level4">
+<h4 class="anchored" data-anchor-id="mosaickingorder">mosaickingOrder</h4>
+<p><a href=".\APIs/SentinelHub/Data/S2L1C.qmd#mosaickingorder">The same as for S2L1C.</a></p>
+</section>
+<section id="resolution-pixel-spacing" class="level4">
+<h4 class="anchored" data-anchor-id="resolution-pixel-spacing">resolution (pixel spacing)</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>HIGH</strong></td>
+<td style="text-align: left;">10m/px for IW/SM and 25m/px for EW</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>MEDIUM</strong></td>
+<td style="text-align: left;">40m/px for IW/SM and EW</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="acquisitionmode" class="level4">
+<h4 class="anchored" data-anchor-id="acquisitionmode">acquisitionMode</h4>
+<p>Sentinel-1 operates in four different acquisition modes (<a href="https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-AcquisitionModesS1-Mission-Acquisition-Modes" target="_blank">more</a>).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Polarization options</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>SM</strong></td>
+<td style="text-align: left;">Stripmap mode (<a href="https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-StripmapS1-Mission-Stripmap" target="_blank">more</a>).</td>
+<td style="text-align: left;">HH+HV, VV+VH, HH, VV</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>IW</strong></td>
+<td style="text-align: left;">Interferometric Wide (IW) swath mode (<a href="https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-InterferometricWideSwathS1-Mission-Interferometric-Wide-Swath" target="_blank">more</a>).</td>
+<td style="text-align: left;">HH+HV, VV+VH, HH, VV</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>EW</strong></td>
+<td style="text-align: left;">Extra Wide (EW) swath mode (<a href="https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-ExtraWideSwathS1-Mission-Extra-Wide-Swath" target="_blank">more</a>).</td>
+<td style="text-align: left;">HH+HV, VV+VH, HH, VV</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>WV</strong></td>
+<td style="text-align: left;">Wave mode (<a href="https://sentiwiki.copernicus.eu/web/s1-mission#S1Mission-WaveS1-Mission-Wave" target="_blank">more</a>).</td>
+<td style="text-align: left;">HH, VV</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="polarization" class="level4">
+<h4 class="anchored" data-anchor-id="polarization">polarization</h4>
+<p>This table contains information about the polarization two letter code used by ESA and the product’s contained polarizations.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 25%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>SH</strong></td>
+<td style="text-align: left;">HH</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>SV</strong></td>
+<td style="text-align: left;">VV</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>DH</strong></td>
+<td style="text-align: left;">HH+HV</td>
+<td style="text-align: left;">Typical for EW acquisitions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>DV</strong></td>
+<td style="text-align: left;">VV+VH</td>
+<td style="text-align: left;">Typical for IW acquisitions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>HH</strong></td>
+<td style="text-align: left;">Partial Dual, HH only</td>
+<td style="text-align: left;">HH+HV was acquired, only HH is available in this product</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>HV</strong></td>
+<td style="text-align: left;">Partial Dual, HV only</td>
+<td style="text-align: left;">HH+HV was acquired, only HV is available in this product</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>VV</strong></td>
+<td style="text-align: left;">Partial Dual, VV only</td>
+<td style="text-align: left;">VV+VH was acquired, only VV is available in this product</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>VH</strong></td>
+<td style="text-align: left;">Partial Dual, VH only</td>
+<td style="text-align: left;">VV+VH was acquired, only VH is available in this product</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="orbitdirection" class="level4">
+<h4 class="anchored" data-anchor-id="orbitdirection">orbitDirection</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>ASCENDING</strong></td>
+<td style="text-align: left;">Data acquired when the satellite was traveling approx. towards the Earth’s North pole.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>DESCENDING</strong></td>
+<td style="text-align: left;">Data acquired when the satellite was traveling approx. towards the Earth’s South pole.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="timeliness" class="level4">
+<h4 class="anchored" data-anchor-id="timeliness">timeliness</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NRT10m</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NRT1h</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NRT3h</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fast24h</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Offline</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reprocessing</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ArchNormal</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="processing-options" class="level3">
+<h3 class="anchored" data-anchor-id="processing-options">Processing Options</h3>
+<p>This chapter will explain the <code>input.data.processing</code> object of the <code>S1GRD</code> <code>process</code> API.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Values</th>
+<th style="text-align: left;">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">upsampling</td>
+<td style="text-align: left;">Defines the interpolation used for processing, regardless of the resolution</td>
+<td style="text-align: left;"><strong>NEAREST</strong> - <a href="https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation" target="_blank">nearest neighbour interpolation</a> <br> <strong>BILINEAR</strong> - <a href="https://en.wikipedia.org/wiki/Bilinear_interpolation" target="_blank">bilinear interpolation</a> <br> <strong>BICUBIC</strong> - <a href="https://en.wikipedia.org/wiki/Bicubic_interpolation" target="_blank">bicubic interpolation</a></td>
+<td style="text-align: left;"><strong>NEAREST</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">downsampling</td>
+<td style="text-align: left;">Not used, use <code>upsampling</code> instead</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Ignored</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">backCoeff [1]</td>
+<td style="text-align: left;">Backscatter coefficient</td>
+<td style="text-align: left;"><strong>BETA0</strong><br><strong>SIGMA0_ELLIPSOID</strong> <br><strong>GAMMA0_ELLIPSOID</strong><br> <strong>GAMMA0_TERRAIN</strong></td>
+<td style="text-align: left;"><strong>GAMMA0_ELLIPSOID</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">orthorectify [2]</td>
+<td style="text-align: left;">Enables/disables orthorectification</td>
+<td style="text-align: left;"><strong>TRUE</strong> - Orthorectified<br><strong>FALSE</strong> - non-Orthorectified<br></td>
+<td style="text-align: left;"><strong>FALSE</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">demInstance</td>
+<td style="text-align: left;">The DEM used for orthorectification</td>
+<td style="text-align: left;"><strong>COPERNICUS</strong> - Copernicus DEM 10m and 30m [4][5] <br> <strong>COPERNICUS_30</strong> - Copernicus DEM 30m [5] <br> <strong>COPERNICUS_90</strong> - Copernicus DEM 90m</td>
+<td style="text-align: left;"><strong>COPERNICUS</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">radiometricTerrainOversampling</td>
+<td style="text-align: left;">Sets the DEM oversampling parameter for radiometric terrain correction. Integer values recommended.</td>
+<td style="text-align: left;">1 to 4</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">speckleFilter</td>
+<td style="text-align: left;">Defines the speckle filtering method and parameters to use.</td>
+<td style="text-align: left;">See <a href="#speckle-filtering">Speckle Filtering</a></td>
+<td style="text-align: left;">NONE</td>
+</tr>
+</tbody>
+</table>
+<p>[1]: <code>gamma0_ellipsoid</code> and <code>sigma0_ellipsoid</code> use an ellipsoid earth model. Radiometric terrain correction can be enabled by setting the backscatter coefficient to <code>gamma0_terrain</code>; orthorectification must be enabled in this case.</p>
+<p>[2]: For orthorectification, we use the DEM instance specified in the demInstance field or the default DEM instance if this is not set. The Copernicus DEM is generally of higher quality and recommended in most cases. The non-orthorectified products use a simple earth model as provided in the products themselves. This may be sufficient for very flat target areas and is faster to process.</p>
+<p>[4]: It has 10m resolution inside <a href="https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model" target="_blank">39 European states including islands</a> and 30m elsewhere. The 30m DEM is used exclusively if the request resolution is lower (more zoomed out) than 120m/px.</p>
+<p>[5]: The Copernicus 30m DEM has global coverage if used for the processing of Sentinel-1 data.</p>
+<section id="speckle-filtering" class="level4">
+<h4 class="anchored" data-anchor-id="speckle-filtering">Speckle Filtering</h4>
+<p>Speckle filtering is applied right after calibration and noise removal and done on source data. To enable speckle filtering, add the speckle filter object with the correct type and parameters to your processing options, as shown in <a href=".\APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-non-orthorectified-lee-speckle-filtered-decibel-gamma0-hh-between--20-db-and-10-db-png">this example</a>).</p>
+<p>Available filters:</p>
+<ol type="1">
+<li>The <code>NONE</code> filter, which as the name implies, does nothing, and is equivalent to not having the filter defined at all.</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>"speckleFilter": {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   "type": "NONE"</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>The LEE speckle filter. Window sizes from 1 to 7 are supported in each dimension. Odd valued window sizes are recommended. Processing time rapidly increases as window size increases. Note also that the effect of the filter depends on the resolution/zoom level; it is most pronounced at native resolution and gets reduced as you zoom out. We therefore suggest you use it at or near native resolution and switch it off at low resolution to save processing time. The effect of the filter is negligible if greatly zoomed out. An example with a 5x5 window:</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>"speckleFilter": {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>   "type": "LEE",</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   "windowSizeX": 5,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   "windowSizeY": 5</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As an alternative or in addition to this, you can also perform <a href=".\APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-orthorectified-gamma0-two-month-temporal-averaged-decibel-vv-between--20-db-and-0-db-png">multitemporal averaging</a> to reduce speckle.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="available-bands-and-data" class="level3">
+<h3 class="anchored" data-anchor-id="available-bands-and-data">Available Bands and Data</h3>
+<p>Information in this chapter is useful when defining <a href=".\APIs/SentinelHub/Evalscript/V3.qmd#input-object-properties"><code>input</code> object</a> in evalscript. Any string listed in the column <strong>Name</strong> can be an element of the <code>input.bands</code> array in your evalscript.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">VV</td>
+<td style="text-align: left;">Present when the product polarization type is one of SV, DV or VV.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VH</td>
+<td style="text-align: left;">Present when the product polarization type is VH or DV.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HV</td>
+<td style="text-align: left;">Present when the product polarization type is HV or DH.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HH</td>
+<td style="text-align: left;">Present when the product polarization type is one of SH, DH or HH.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">localIncidenceAngle</td>
+<td style="text-align: left;">The local incidence angle for each output pixel. Only available if orthorectification is enabled.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scatteringArea</td>
+<td style="text-align: left;">The normalized scattering area for each output pixel. Used for conversion of beta0 to terrain corrected gamma0. Only available if radiometric terrain correction is performed.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">shadowMask</td>
+<td style="text-align: left;">Flags output pixels which are in or near radar shadow. Is <code>true</code> if the nearest GRD source pixel is at most one GRD pixel away from a GRD pixel with a scatteringArea of less than 0.05. Only available if radiometric terrain correction is performed.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dataMask</td>
+<td style="text-align: left;">The mask of data/nodata pixels (<a href=".\APIs/SentinelHub/UserGuides/Datamask.qmd">more</a>).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="units" class="level3">
+<h3 class="anchored" data-anchor-id="units">Units</h3>
+<p>The data values for each band in your custom script are presented in the units as specified here. In case more than one unit is available for a given band, you may optionally set the value of <code>input.units</code> in your evalscript <code>setup</code> function to one of the values in the <code>Sentinel Hub Units</code> column. Doing so will present data in that unit. The Sentinel Hub <code>units</code> parameter combines the physical quantity and corresponding units of measurement values. As such, some names more closely resemble physical quantities, others resemble units of measurement.</p>
+<p>The <code>Source Format</code> specifies how and with what precision the digital numbers (<code>DN</code>) from which the unit is derived are encoded. Bands requested in <code>DN</code> units contain exactly the pixel values of the source data. Note that resampling may produce interpolated values. <code>DN</code> is also used whenever a band is derived computationally (like dataMask); such bands can be identified by having <code>DN</code> units and <code>N/A</code> source format. <code>DN</code> values are typically not offered if they do not simply represent any physical quantity, in particular, when <code>DN</code> values require source-specific (i.e.&nbsp;non-global) conversion to physical quantities.</p>
+<p>Values in non-<code>DN</code> units are computed from the source (<code>DN</code>) values with at least float32 precision. Note that the conversion might be nonlinear, therefore the full value range and quantization step size of such a band can be hard to predict. Band values in evalscripts always behave as floating point numbers, regardless of the actual precision.</p>
+<p>The <code>Typical Range</code> indicates what values are common for a given band and unit, however outliers can be expected.</p>
+<p>For Sentinel-1, data values are linear power in the chosen backscatter coefficient. To specify the backscatter coefficient, set <code>BETA0</code>, <code>SIGMA0_ELLIPSOID</code>, <code>GAMMA0_ELLIPSOID</code> (default) or <code>GAMMA0_TERRAIN</code> as the value of <code>input.data.processing.backCoeff</code> in your request. The default is <code>GAMMA0_ELLIPSOID</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 18%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 19%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Band</th>
+<th style="text-align: left;">Physical Quantity (units)</th>
+<th style="text-align: left;">Sentinel Hub Units</th>
+<th style="text-align: left;">Source Format</th>
+<th style="text-align: left;">Typical Range</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Polarization <br>VV, HH, VH, HV</td>
+<td style="text-align: left;">Linear power in the chosen backscatter coefficient (unitless)</td>
+<td style="text-align: left;">LINEAR_POWER</td>
+<td style="text-align: left;">UINT16</td>
+<td style="text-align: left;">0 - 0.5</td>
+<td style="text-align: left;">Can reach very high values (such as 1000); for visualizing a large dynamic range consider converting to decibels: <code>decibel = 10 * log10 (linear)</code>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">localIncidenceAngle</td>
+<td style="text-align: left;">Angle (degrees)</td>
+<td style="text-align: left;">DN</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">0 - 180</td>
+<td style="text-align: left;">Computed for each output pixel. Requires orthorectification.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scatteringArea</td>
+<td style="text-align: left;">Normalized area (unitless)</td>
+<td style="text-align: left;">DN</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">0 - 2</td>
+<td style="text-align: left;">Can reach high values on foreslopes. Requires radiometric terrain correction.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">shadowMask</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">DN</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">0 - likely not radar shadow <br> 1 - likely in/near radar shadow</td>
+<td style="text-align: left;">Requires radiometric terrain correction.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dataMask</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">DN</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">0 - no data<br> 1 - data</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scenes-object" class="level3">
+<h3 class="anchored" data-anchor-id="scenes-object">Scenes Object</h3>
+<p><a href=".\APIs/SentinelHub/Evalscript/V3.qmd#scenes"><code>scenes</code> object</a> stores metadata. An example of metadata available in <code>scenes</code> object for Sentinel-1 GRD when mosaicking is <code>ORBIT</code>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Property name</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">dateFrom</td>
+<td style="text-align: left;"><code>'2019-04-02T00:00:00Z'</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dateTo</td>
+<td style="text-align: left;"><code>'2019-04-02T23:59:59Z'</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tiles[i].date</td>
+<td style="text-align: left;"><code>'2019-04-02T17:05:39Z'</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tiles[i].shId</td>
+<td style="text-align: left;"><code>881338</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tiles[i].dataPath</td>
+<td style="text-align: left;"><code>'s3://sentinel-s1-l1c/GRD/2019/4/2/IW/DV/S1A_IW_GRDH_1SDV_20190402T170539_20190402T170604_026614_02FC31_7D8E'</code></td>
+</tr>
+</tbody>
+</table>
+<p>Properties of a <code>scenes</code> object can differ depending on the selected mosaicking and in which evalscript function the object is accessed. <a href=".\APIs/SentinelHub/UserGuides/Metadata.qmd">Working with metadata in evalscript</a> user guide explains all details and provide examples.</p>
+</section>
+<section id="mosaicking" class="level3">
+<h3 class="anchored" data-anchor-id="mosaicking">Mosaicking</h3>
+<p><code>SIMPLE</code> and <code>ORBIT</code> <a href=".\APIs/SentinelHub/Evalscript/V3.qmd#mosaicking">mosaicking</a> types are supported.</p>
+</section>
+</section>
+<section id="collection-specific-constraints" class="level2">
+<h2 class="anchored" data-anchor-id="collection-specific-constraints">Collection specific constraints</h2>
+<ul>
+<li><strong>Noise</strong>: All products on both services have thermal noise reduction applied.</li>
+<li><strong>Decibel units</strong>: For decibel outputs, a conversion is necessary within your evalscript, see an example <a href=".\APIs/SentinelHub/Process/Examples/S1GRD.qmd#s1grd-orthorectified-decibel-gamma0-vh-between--20-db-and-0-db-png">here</a>. We offer pre-defined evalscripts, which return S1GRD values in decibel units, as products in the Configuration Utility for your convenience.</li>
+<li><strong>Orbit state vectors</strong>: We currently use the orbit state vectors provided in the products themselves as we find these sufficient for GRD use.</li>
+</ul>
+</section>
+<section id="catalog-api-capabilities" class="level2">
+<h2 class="anchored" data-anchor-id="catalog-api-capabilities">Catalog API Capabilities</h2>
+<p>To access Sentinel-1 GRD product metadata you need to send search request to our <a href=".\APIs/SentinelHub/Catalog.qmd">Catalog API</a>. The requested metadata will be returned as JSON formatted response to your request. This chapter will help with understanding Sentinel 1 GRD specific parameters for search request.</p>
+<section id="collection-identifier-sentinel-1-grd" class="level3">
+<h3 class="anchored" data-anchor-id="collection-identifier-sentinel-1-grd">Collection identifier: sentinel-1-grd</h3>
+</section>
+<section id="filter-extension" class="level3">
+<h3 class="anchored" data-anchor-id="filter-extension">Filter extension</h3>
+<ul>
+<li><code>sar:instrument_mode</code> (<a href="#acquisitionmode">possible values</a>)</li>
+<li><code>sat:orbit_state</code> (<a href="#orbitdirection">possible values</a>)</li>
+<li><code>s1:polarization</code> (<a href="#polarization">possible values</a>)</li>
+<li><code>s1:resolution</code> (<a href="#resolution-pixel-spacing">possible values</a>)</li>
+<li><code>s1:timeliness</code> (<a href="#timeliness">possible values</a>)</li>
+</ul>
+</section>
+<section id="distinct-extension" class="level3">
+<h3 class="anchored" data-anchor-id="distinct-extension">Distinct extension</h3>
+<ul>
+<li><code>date</code></li>
+<li><code>sar:instrument_mode</code></li>
+<li><code>sat:orbit_state</code></li>
+<li><code>s1:polarization</code></li>
+</ul>
+</section>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p><a href=".\APIs/SentinelHub/Process/Examples/S1GRD.qmd">S1 GRD examples</a></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
