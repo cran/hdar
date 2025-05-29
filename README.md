@@ -10,3 +10,13 @@
 You can install the development version from GitHub:
 ```r
 devtools::install_github("eea/hdar")
+```
+## Usage
+See for more details: 
+```r
+vignette("hdar")
+```
+
+
+
+
